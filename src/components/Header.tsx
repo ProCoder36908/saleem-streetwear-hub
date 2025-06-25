@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Menu, X, ShoppingBag, Search, User, ChevronDown } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,10 +27,10 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-2xl font-bold">
+          <Link to="/" className="text-2xl font-bold">
             <span className="text-orange-500">Usman</span>
             <span className="text-white ml-2">Saleem</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
@@ -47,15 +48,20 @@ const Header = () => {
                   <DropdownMenuItem 
                     key={category.name}
                     className="hover:bg-orange-500/10 focus:bg-orange-500/10 cursor-pointer"
+                    asChild
                   >
-                    <span className="mr-2">{category.emoji}</span>
-                    {category.name}
+                    <Link to="/shop">
+                      <span className="mr-2">{category.emoji}</span>
+                      {category.name}
+                    </Link>
                   </DropdownMenuItem>
                 ))}
                 <DropdownMenuSeparator className="bg-orange-500/20" />
-                <DropdownMenuItem className="hover:bg-orange-500/10 focus:bg-orange-500/10 cursor-pointer">
-                  <span className="mr-2">🔥</span>
-                  All Products
+                <DropdownMenuItem className="hover:bg-orange-500/10 focus:bg-orange-500/10 cursor-pointer" asChild>
+                  <Link to="/shop">
+                    <span className="mr-2">🔥</span>
+                    All Products
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -96,14 +102,14 @@ const Header = () => {
               <div className="space-y-2">
                 <div className="text-orange-500 font-semibold">Shop Categories:</div>
                 {categories.map((category) => (
-                  <a 
+                  <Link
                     key={category.name}
-                    href="#" 
+                    to="/shop" 
                     className="hover:text-orange-500 transition-colors flex items-center gap-2 pl-4"
                   >
                     <span>{category.emoji}</span>
                     {category.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <a href="#" className="hover:text-orange-500 transition-colors">New Drops</a>
