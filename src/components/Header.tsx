@@ -1,10 +1,25 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ShoppingBag, Search, User } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Menu, X, ShoppingBag, Search, User, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const categories = [
+    { name: "T-Shirts", emoji: "👕" },
+    { name: "Hoodies", emoji: "🧥" },
+    { name: "Caps", emoji: "🧢" },
+    { name: "Watches", emoji: "⌚" },
+    { name: "Accessories", emoji: "🔥" },
+  ];
 
   return (
     <header className="bg-black border-b border-orange-500/20 sticky top-0 z-50">
@@ -18,8 +33,33 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="hover:text-orange-500 transition-colors">Shop</a>
-            <a href="#" className="hover:text-orange-500 transition-colors">Collections</a>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  className="hover:text-orange-500 transition-colors flex items-center gap-1"
+                >
+                  Shop <ChevronDown size={16} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-black border-orange-500/20 text-white min-w-[200px]">
+                {categories.map((category) => (
+                  <DropdownMenuItem 
+                    key={category.name}
+                    className="hover:bg-orange-500/10 focus:bg-orange-500/10 cursor-pointer"
+                  >
+                    <span className="mr-2">{category.emoji}</span>
+                    {category.name}
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator className="bg-orange-500/20" />
+                <DropdownMenuItem className="hover:bg-orange-500/10 focus:bg-orange-500/10 cursor-pointer">
+                  <span className="mr-2">🔥</span>
+                  All Products
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <a href="#" className="hover:text-orange-500 transition-colors">New Drops</a>
             <a href="#" className="hover:text-orange-500 transition-colors">About</a>
             <a href="#" className="hover:text-orange-500 transition-colors">Contact</a>
           </nav>
@@ -53,8 +93,20 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-4 border-t border-orange-500/20 pt-4">
             <nav className="flex flex-col space-y-4">
-              <a href="#" className="hover:text-orange-500 transition-colors">Shop</a>
-              <a href="#" className="hover:text-orange-500 transition-colors">Collections</a>
+              <div className="space-y-2">
+                <div className="text-orange-500 font-semibold">Shop Categories:</div>
+                {categories.map((category) => (
+                  <a 
+                    key={category.name}
+                    href="#" 
+                    className="hover:text-orange-500 transition-colors flex items-center gap-2 pl-4"
+                  >
+                    <span>{category.emoji}</span>
+                    {category.name}
+                  </a>
+                ))}
+              </div>
+              <a href="#" className="hover:text-orange-500 transition-colors">New Drops</a>
               <a href="#" className="hover:text-orange-500 transition-colors">About</a>
               <a href="#" className="hover:text-orange-500 transition-colors">Contact</a>
               <div className="flex items-center space-x-4 pt-4 border-t border-orange-500/20">
