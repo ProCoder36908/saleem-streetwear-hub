@@ -49,16 +49,6 @@ const Hero = () => {
       {/* Floating background shapes */}
       <div className="absolute top-1/4 left-1/4 w-20 h-20 bg-orange-500/10 rounded-full animate-float"></div>
       <div className="absolute bottom-1/4 right-1/4 w-16 h-16 bg-orange-500/5 rounded-full animate-float delay-2000"></div>
-      
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 };
